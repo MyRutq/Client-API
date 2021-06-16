@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 // DB connections
 // mongodb+srv://<username>:<password>@cluster0.wffly.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 mongoose.connect(
-    'mongodb+srv://Admin:12345@cluster1.5scth.mongodb.net/Cluster1?retryWrites=true&w=majority',
+    'mongodb+srv://Admin:12345@cluster1.5scth.mongodb.net/Blog-API?retryWrites=true&w=majority',
     { useNewUrlParser: true, useUnifiedTopology: true },
     () => { 
         console.log('DB connected')
