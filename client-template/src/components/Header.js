@@ -2,8 +2,8 @@ import React from 'react'
 
 function Header() {
     return (
-        <header>
-            <h1>Hejsan från header</h1>
+        <header className='text-center'>
+            <h1>My Magical Blog</h1>
         </header>
     )
 }

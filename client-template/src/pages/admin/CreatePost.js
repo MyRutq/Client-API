@@ -11,7 +11,7 @@ function CreatePost() {
     const handleChange = (e) => {
         setPost({
             ...post, 
-            content: e.target.value
+            [e.target.name]: e.target.value
         });
     }
 
@@ -19,7 +19,12 @@ function CreatePost() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const object = {content: post.content}
+        const object = {
+            title: post.title,
+            author: post.author,
+            content: post.content,
+            tags: post.tags
+        }
 
         try {
             let response = await fetch('http://localhost:5000/posts', {

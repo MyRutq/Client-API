@@ -3,6 +3,7 @@ import {useHistory} from 'react-router-dom';
 import PostForm from '../PostForm';
 
 function UpdatePost({match}) {
+   
     const [post, setPost] = useState({});
     const history = useHistory();
 
@@ -28,14 +29,20 @@ function UpdatePost({match}) {
     const handleChange = (e) => {
         setPost({
             ...post,
-            content: e.target.value
+            [e.target.name]: e.target.value
         });
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const object = {content: post.content}
+        const object = {
+            
+            title: post.title,
+            author: post.author,
+            content: post.content,
+            tags: post.tags
+        }
 
         try {
             await fetch('http://localhost:5000/posts/' + post['_id'], {

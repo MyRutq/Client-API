@@ -1,7 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
+import Form from 'react-bootstrap/Form'
 
-function PostForm({handleSubmit, handleChange, post, pageId}) {
+function PostForm({handleSubmit, post, pageId, handleChange}) {
     const formatDate = (date) => {
         let dateObj = new Date(date);
 
@@ -9,33 +10,53 @@ function PostForm({handleSubmit, handleChange, post, pageId}) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <textarea 
-                name="" 
-                id="" 
-                cols="30" 
-                rows="10" 
-                value={post.content} 
-                onChange={handleChange}
-            />
+        <Form onSubmit={handleSubmit}>
 
-            {
-                pageId === 'update-post'
-                    ? <p>Created at: {formatDate(post.date)}</p>
-                    : ''
-            }
-            
-            
-            <br />
-            <br />
-            
-            <button>{ pageId === 'update-post' ? 'Update' : 'Create'}</button>
-            
-            <br />
-            <br />
+            <Form.Group>
+                <Form.Label>Title:</Form.Label>
+                <Form.Control type='text' value={post.title} name='title' onChange={handleChange} />
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Author:</Form.Label>
+                <Form.Control type='text' value={post.author} name='author' onChange={handleChange}/>
+            </Form.Group>
 
-            <Link to="/manage-posts">&#x2190; back</Link>
-        </form>
+            <Form.Group>
+                <Form.Label>Content: </Form.Label>
+                <Form.Control 
+                    as="textarea" 
+                    name="content" 
+                    id="" 
+                    cols="30" 
+                    rows="10" 
+                    value={post.content} 
+                    onChange={handleChange}
+                />
+                
+            </Form.Group>
+
+            <Form.Group>
+                <Form.Label>Tags: </Form.Label>
+                <Form.Control type='text' value={post.tags} name='tags' onChange={handleChange}/> 
+            </Form.Group>
+
+            <Form.Group>
+                {
+                    pageId === 'update-post'
+                        ? <p>Created at: {formatDate(post.date)}</p>
+                        : ''
+                }
+            
+            
+                <button className={ pageId === 'update-post' ? 'btn btn-info' : 'btn btn-primary'}>{ pageId === 'update-post' ? 'Update' : 'Create'}</button>
+            </Form.Group>
+            
+            
+            <Form.Group>
+                <Link to="/manage-posts">&#x2190; Back</Link>
+            </Form.Group>
+           
+        </Form>
     )
 }
 

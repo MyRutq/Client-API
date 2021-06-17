@@ -1,44 +1,53 @@
-import React, {useState, useEffect} from 'react'
-import Posts from '../Posts';
 
-function ManagePosts() {
-    const [posts, setPosts] = useState([]);
+import Table from 'react-bootstrap/Table'
+import {Link} from 'react-router-dom';
 
-    useEffect(() => {
-        fetchPosts();
-    }, []); 
+function ManagePosts( { posts, deletePost } ) {
+    
+    const formatDate = (date) => {
+        let dateObj = new Date(date);
 
-    const fetchPosts = async () => {
-        try {
-            const response = await fetch('http://localhost:5000/posts');
-            if (!response.ok) {
-                throw new Error('Server error: ' + response.status)
-            }
-            const data = await response.json();
-            console.log(data);
-            setPosts(data);
-        } catch (error) {
-            console.log(error);
-        }
+        return `${dateObj.getFullYear()}-${dateObj.getMonth()}-${dateObj.getDate()} ${dateObj.getHours()}:${dateObj.getMinutes()}`;
     }
 
-    const deletePost = async (postId) => {
-        try {
-            await fetch('http://localhost:5000/posts' + postId, {
-                    method: 'DELETE', // *GET, POST, PATCH, DELETE, etc.
-            });
-
-            fetchPosts();
-        } catch (error) {
-            console.log(error);
-        }
+    const handleDeletePost = (post) => {
+        deletePost(post['_id']);
     }
 
     return (
         <div>
             <h1>Manage Posts</h1>
+            <Table striped bordered hover variant="dark">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Tags</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        posts.map((post) => (
+                            <tr key={post['_id']}>
+                                <td>{post.title}</td>
+                                <td>{post.author}</td>
+                                <td>{post.tags}</td>
+                                <td>{formatDate(post.date)}</td>
+                                <td>
+                                    <Link to={`/update-post/${post['_id']}`}>
+                                        <button className="btn btn-warning mr-2">Update</button>
+                                    </Link>
+                                    
+                                    <button className="btn btn-danger ml-2" onClick={handleDeletePost}>Delete</button>
+                                </td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
 
-            <Posts posts={posts} deletePost={deletePost}/>
+            </Table>
         </div>
     )
 }
