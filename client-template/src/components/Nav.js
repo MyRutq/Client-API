@@ -1,23 +1,19 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar'
 
 function Navigation() {
 
     return (
-    <Nav className="justify-content-center" activeKey="/">
-        <Nav.Item>
-          <Nav.Link as={Link} to="/">Home</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link as={Link} to="/manage-posts">Manage posts</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link as={Link} to="/create-post">Create post</Nav.Link>
-        </Nav.Item>
+    <Navbar bg="dark" variant="dark" className="justify-content-center">
+      <Nav>
+        <Nav.Link className="mr-5 active" href="/">Home</Nav.Link>
+        <Nav.Link className="mr-5" href="/manage-posts">Manage posts</Nav.Link>
+        <Nav.Link href="/create-post">Create post</Nav.Link>
       </Nav>
+    </Navbar>
     )
 }
 
 export default Navigation
-

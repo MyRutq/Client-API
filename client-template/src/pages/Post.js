@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react'
+import {Link} from 'react-router-dom';
+import Card from 'react-bootstrap/Card'
+import { ListGroup } from 'react-bootstrap'
+
+function Post({posts, match}) {
 
 
-function Post({match}) {
-    const [post, setPost] = useState({});
-
+    const [post, setPost] = useState([]);
     useEffect(() => {
         fetchPost();
     }, []);
@@ -30,13 +33,25 @@ function Post({match}) {
 
 
     return (
-        <div>
+        <div className="d-flex flex-column align-items-center">
+            <Card style={{ width: '50vw' }} >
 
-            <h2> {post.title}</h2>
-            <p> {post.author} | {formatDate(post.date)}</p>
-            <p><strong>Tags: </strong>{post.tags}</p>                    
-            <p>{post.content}</p>
+                <Card.Body>
+                    <Card.Title className="text-center">{post.title}</Card.Title>
+                    <Card.Subtitle className="mb-2 mt-2 text-muted text-center">
+                        {post.author} | {formatDate(post.date)}
+                    </Card.Subtitle>
+                        <Card.Text className="text-center">
+                            <strong>Tags: </strong>{post.tags}
+                        </Card.Text>
+                        <ListGroup>
+                            <ListGroup.Item>{post.content}</ListGroup.Item>
+                        </ListGroup>
+                </Card.Body>
+                
+            </Card>
 
+            <Link className="mt-3 mb-3" to="/">&#x2190; Back</Link>
         </div>
     )
 }

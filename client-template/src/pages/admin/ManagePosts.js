@@ -1,6 +1,6 @@
-
 import Table from 'react-bootstrap/Table'
 import {Link} from 'react-router-dom';
+import Button from 'react-bootstrap/Button'
 
 function ManagePosts( { posts, deletePost } ) {
     
@@ -10,9 +10,6 @@ function ManagePosts( { posts, deletePost } ) {
         return `${dateObj.getFullYear()}-${dateObj.getMonth()}-${dateObj.getDate()} ${dateObj.getHours()}:${dateObj.getMinutes()}`;
     }
 
-    const handleDeletePost = (post) => {
-        deletePost(post['_id']);
-    }
 
     return (
         <div>
@@ -37,10 +34,10 @@ function ManagePosts( { posts, deletePost } ) {
                                 <td>{formatDate(post.date)}</td>
                                 <td>
                                     <Link to={`/update-post/${post['_id']}`}>
-                                        <button className="btn btn-warning mr-2">Update</button>
+                                        <Button className="mr-2" variant="warning">Update</Button>
                                     </Link>
                                     
-                                    <button className="btn btn-danger ml-2" onClick={handleDeletePost}>Delete</button>
+                                    <Button variant="danger" className="ml-2" onClick={() => deletePost(post['_id'])}>Delete</Button>
                                 </td>
                             </tr>
                         ))

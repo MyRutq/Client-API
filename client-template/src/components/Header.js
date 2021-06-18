@@ -1,10 +1,12 @@
 import React from 'react'
+import Jumbotron from 'react-bootstrap/Jumbotron'
+
 
 function Header() {
     return (
-        <header className='text-center'>
+        <Jumbotron className='text-center'>
             <h1>My Magical Blog</h1>
-        </header>
+        </Jumbotron>
     )
 }
 

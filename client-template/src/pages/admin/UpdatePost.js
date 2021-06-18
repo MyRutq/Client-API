@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import {useHistory} from 'react-router-dom';
 import PostForm from '../PostForm';
 
 function UpdatePost({match}) {
    
     const [post, setPost] = useState({});
-    const history = useHistory();
+   
 
     useEffect(() => {
         fetchPost();
@@ -37,7 +36,6 @@ function UpdatePost({match}) {
         e.preventDefault();
 
         const object = {
-            
             title: post.title,
             author: post.author,
             content: post.content,
@@ -52,9 +50,10 @@ function UpdatePost({match}) {
                 },
                 body: JSON.stringify(object)
             });
+             
+            window.location.replace('/manage-posts')
 
-           
-            history.push('/manage-posts'); 
+
         } catch (error) {
             console.log(error);
         }

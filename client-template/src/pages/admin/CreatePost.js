@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
-import {useHistory} from 'react-router-dom';
 import PostForm from '../PostForm';
 
 
 
 function CreatePost() {
     const [post, setPost] = useState({});
-    const history = useHistory();
 
     const handleChange = (e) => {
         setPost({
@@ -39,7 +37,8 @@ function CreatePost() {
                 throw new Error('Server error: ' + response.status);
             }
 
-            history.push('manage-posts');
+            window.location.replace('/manage-posts')
+
         } catch(error) {
             console.log(error);
         }

@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
 import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 function PostForm({handleSubmit, post, pageId, handleChange}) {
     const formatDate = (date) => {
@@ -48,7 +49,7 @@ function PostForm({handleSubmit, post, pageId, handleChange}) {
                 }
             
             
-                <button className={ pageId === 'update-post' ? 'btn btn-info' : 'btn btn-primary'}>{ pageId === 'update-post' ? 'Update' : 'Create'}</button>
+                <Button variant={ pageId === 'update-post' ? 'info' : 'success'} type="submit">{ pageId === 'update-post' ? 'Update' : 'Create'}</Button>
             </Form.Group>
             
             

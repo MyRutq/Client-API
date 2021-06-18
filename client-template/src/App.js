@@ -14,6 +14,7 @@ import CreatePost from './pages/admin/CreatePost';
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Nav from './components/Nav'
+import Post from './pages/Post'
 
 
 function App() {
@@ -39,10 +40,12 @@ function App() {
     }
 
     const deletePost = async (postId) => {
+      console.log(postId)
         try {
-            await fetch('http://localhost:5000/posts' + postId, {
+            await fetch('http://localhost:5000/posts/' + postId, {
                     method: 'DELETE', // *GET, POST, PATCH, DELETE, etc.
             });
+
 
             fetchPosts();
         } catch (error) {
@@ -55,17 +58,22 @@ function App() {
 
     <Container >
       <Router>
+        <Nav />
         <Header />
-          <Nav />
           <Switch>
+            
             <Route path="/" exact>
               <Home posts={posts} />
             </Route>
+
             <Route path="/manage-posts">
               <ManagePosts posts={posts} deletePost={deletePost}/>
             </Route>
+
             <Route path="/create-post" component={CreatePost} />
             <Route path="/update-post/:id" component={UpdatePost} />
+            <Route path="/post/:id" component={Post} />
+           
           </Switch>
           <Footer />
       </Router>
