@@ -1,10 +1,15 @@
 import React, {useState} from 'react';
-import PostForm from '../PostForm';
-
+import PostForm from '../../components/PostForm';
+import { motion } from "framer-motion";
+import {
+    pageVariants,
+    titleVariants
+} from '../../components/Animations';
 
 
 function CreatePost() {
     const [post, setPost] = useState({});
+    const [validated, setValidated] = useState(false);
 
     const handleChange = (e) => {
         setPost({
@@ -16,6 +21,16 @@ function CreatePost() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+          e.preventDefault();
+          e.stopPropagation();
+        } else {
+            window.location.replace('/manage-posts')
+        }
+
+        setValidated(true);
 
         const object = {
             title: post.title,
@@ -37,7 +52,7 @@ function CreatePost() {
                 throw new Error('Server error: ' + response.status);
             }
 
-            window.location.replace('/manage-posts')
+            
 
         } catch(error) {
             console.log(error);
@@ -45,16 +60,21 @@ function CreatePost() {
     }
 
     return (
-        <div>
-            <h1>Create Post</h1>
-
+        <motion.div
+        initial={'start'}
+        animate={'stop'}
+        variants={pageVariants}
+        >
+            <motion.h2 variants={titleVariants} className='text-center'>Create Post</motion.h2>
             <PostForm 
                 handleSubmit={handleSubmit}
                 handleChange={handleChange}
                 post={post}
                 pageId="create-post"
+                validated={validated}
             />
-        </div>
+            
+        </motion.div>
     )
 }
 

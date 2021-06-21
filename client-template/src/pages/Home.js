@@ -1,12 +1,24 @@
 import React from 'react'
 import Posts from './Posts';
+import { motion } from "framer-motion";
+import {
+    pageVariants,
+    titleVariants
+} from '../components/Animations';
 
 function Home( {posts} ) {
     return (
-        <div>
-            <h1>Home</h1>
+       
+
+        <motion.div
+        initial={'start'}
+        animate={'stop'}
+        variants={pageVariants}
+        >
+            <motion.h2 variants={titleVariants} className='text-center'>Home</motion.h2>
             <Posts posts={posts} />
-        </div>
+            
+        </motion.div>
     )
 }
 

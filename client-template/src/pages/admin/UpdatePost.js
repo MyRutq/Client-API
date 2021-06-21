@@ -1,9 +1,15 @@
 import React, {useState, useEffect} from 'react'
-import PostForm from '../PostForm';
+import PostForm from '../../components/PostForm';
+import { motion } from "framer-motion";
+import {
+    pageVariants,
+    titleVariants
+} from '../../components/Animations';
 
 function UpdatePost({match}) {
    
     const [post, setPost] = useState({});
+    const [validated, setValidated] = useState(false);
    
 
     useEffect(() => {
@@ -35,6 +41,16 @@ function UpdatePost({match}) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+          e.preventDefault();
+          e.stopPropagation();
+        } else {
+            window.location.replace('/manage-posts')
+        }
+
+        setValidated(true);
+
         const object = {
             title: post.title,
             author: post.author,
@@ -50,8 +66,6 @@ function UpdatePost({match}) {
                 },
                 body: JSON.stringify(object)
             });
-             
-            window.location.replace('/manage-posts')
 
 
         } catch (error) {
@@ -60,16 +74,21 @@ function UpdatePost({match}) {
     }
 
     return (
-        <div>
-            <h1>Update Post</h1>
-
+        <motion.div
+        initial={'start'}
+        animate={'stop'}
+        variants={pageVariants}
+        >
+            <motion.h2 variants={titleVariants} className='text-center'>Update Post</motion.h2>
             <PostForm 
                 handleSubmit={handleSubmit}
                 handleChange={handleChange}
                 post={post}
                 pageId="update-post"
+                validated={validated}
             />
-        </div>
+            
+        </motion.div>
     )
 }
 

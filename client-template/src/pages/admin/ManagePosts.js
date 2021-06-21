@@ -1,6 +1,11 @@
 import Table from 'react-bootstrap/Table'
 import {Link} from 'react-router-dom';
 import Button from 'react-bootstrap/Button'
+import { motion } from "framer-motion";
+import {
+    pageVariants,
+    titleVariants
+} from '../../components/Animations';
 
 function ManagePosts( { posts, deletePost } ) {
     
@@ -12,8 +17,13 @@ function ManagePosts( { posts, deletePost } ) {
 
 
     return (
-        <div>
-            <h1>Manage Posts</h1>
+
+        <motion.div
+        initial={'start'}
+        animate={'stop'}
+        variants={pageVariants}
+        >
+            <motion.h2 variants={titleVariants} className='text-center'>Manage Posts</motion.h2>
             <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
@@ -45,7 +55,9 @@ function ManagePosts( { posts, deletePost } ) {
                 </tbody>
 
             </Table>
-        </div>
+            
+        </motion.div>
+        
     )
 }
 
